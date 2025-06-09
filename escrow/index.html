@@ -48,7 +48,7 @@
       </section>
 
       <section class="bg-gray-800 p-6 rounded-xl shadow-lg">
-        <h3 class="text-lg font-medium">Status: <span id="responseMessage" class="text-green-400"></span></h3>
+        <h3 class="text-lg font-medium text-white">Status: <span id="responseMessage" class="text-green-400"></span></h3>
       </section>
 
       <section id="sectionOpen" class="bg-gray-800 p-6 rounded-xl shadow-lg">
@@ -57,7 +57,7 @@
           Before you open an escrow account, you must approve the funds transfer from your wallet.
         </p>
 
-        <label for="amount" class="block font-medium">Amount</label>
+        <label for="amount" class="block font-medium text-white">Amount</label>
         <input type="number" id="amount" name="amount" min="1" class="mt-1 mb-4 w-full p-2 bg-gray-700 text-white rounded" />
         <button
           id="approveButton"
@@ -67,10 +67,10 @@
           Approve Token Transfer
         </button>
 
-        <label for="sellerAddress" class="block font-medium">Seller Address</label>
+        <label for="sellerAddress" class="block font-medium text-white">Seller Address</label>
         <input type="text" id="sellerAddress" name="sellerAddress" class="mt-1 mb-4 w-full p-2 bg-gray-700 text-white rounded" />
 
-        <label for="mediatorAddress" class="block font-medium">Mediator Address</label>
+        <label for="mediatorAddress" class="block font-medium text-white">Mediator Address</label>
         <input type="text" id="mediatorAddress" name="mediatorAddress" class="mt-1 mb-4 w-full p-2 bg-gray-700 text-white rounded" />
 
         <button
@@ -86,7 +86,7 @@
       <section id="sectionClose" class="bg-gray-800 p-6 rounded-xl shadow-lg">
         <h2 class="text-xl font-semibold text-white mb-2">Close Escrow</h2>
 
-        <label for="closeOption" class="block font-medium">Close Escrow Option</label>
+        <label for="closeOption" class="block font-medium text-white">Close Escrow Option</label>
         <select
           id="closeOption"
           name="closeOption"
@@ -108,13 +108,59 @@
     </div>
 
     <script>
+      window.addEventListener('load', async () => {
+        if (typeof window.ethereum !== 'undefined') {
+          try {
+            await ethereum.request({ method: 'eth_requestAccounts' });
+          } catch (err) {
+            console.error("Wallet auto-connect failed:", err);
+          }
+        }
+      });
+
       function startApp() {
         document.getElementById('landing').classList.add('hidden');
         document.getElementById('app').classList.remove('hidden');
         checkWallet();
       }
 
-      // The rest of your JavaScript functions like checkWallet(), contractConnect(), approveButton(), openEscrow(), closeEscrow() stay the same
+      async function checkWallet() {
+        try {
+          if (!window.ethereum) {
+            document.getElementById('walletStatus').innerText = 'No crypto wallet found';
+            return;
+          }
+
+          const accounts = await ethereum.request({ method: 'eth_accounts' });
+          myWallet = accounts[0];
+
+          if (!myWallet) {
+            await ethereum.request({ method: 'eth_requestAccounts' });
+            const updatedAccounts = await ethereum.request({ method: 'eth_accounts' });
+            myWallet = updatedAccounts[0];
+          }
+
+          if (myWallet) {
+            document.getElementById('walletStatus').innerHTML = "&#x2713; Your crypto wallet is connected.";
+            document.getElementById('walletStatus').classList.remove('text-red-400');
+            document.getElementById('walletStatus').classList.add('text-green-400');
+            document.getElementById('walletButton').hidden = true;
+            contractConnect();
+          } else {
+            document.getElementById('walletStatus').innerText = "Click here to connect a crypto wallet:";
+            document.getElementById('walletButton').hidden = false;
+          }
+        } catch (err) {
+          console.error("Wallet connection error:", err);
+          document.getElementById('walletStatus').innerText = `Error: ${err.message}`;
+        }
+      }
+
+      // Placeholder function stubs
+      function contractConnect() {}
+      function approveButton() {}
+      function openEscrow() {}
+      function closeEscrow() {}
     </script>
   </body>
 </html>
