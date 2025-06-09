@@ -109,18 +109,76 @@
 
     <script>
       let myWallet = null;
+      let contractInstance;
+      const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE"; // Replace with your contract address
+
+      async function contractConnect() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        contractInstance = new ethers.Contract(contractAddress, escrowABI, signer);
+      }
+
+      async function approveButton() {
+        const amount = document.getElementById("amount").value;
+        if (!amount || isNaN(amount)) {
+          alert("Enter a valid amount");
+          return;
+        }
+        try {
+          const tx = await contractInstance.approveTokenTransfer(ethers.utils.parseEther(amount));
+          await tx.wait();
+          document.getElementById("responseMessage").innerText = "Token transfer approved.";
+          document.getElementById("openButton").disabled = false;
+        } catch (err) {
+          console.error("Approval failed:", err);
+          document.getElementById("responseMessage").innerText = `Approval failed: ${err.message}`;
+        }
+      }
+
+      async function openEscrow() {
+        const seller = document.getElementById("sellerAddress").value;
+        const mediator = document.getElementById("mediatorAddress").value;
+        const amount = document.getElementById("amount").value;
+
+        if (!seller || !mediator || !amount) {
+          alert("Fill in all fields.");
+          return;
+        }
+
+        try {
+          const tx = await contractInstance.openEscrow(seller, mediator, ethers.utils.parseEther(amount));
+          await tx.wait();
+          document.getElementById("responseMessage").innerText = "Escrow opened successfully.";
+        } catch (err) {
+          console.error("Open escrow failed:", err);
+          document.getElementById("responseMessage").innerText = `Open escrow failed: ${err.message}`;
+        }
+      }
+
+      async function closeEscrow() {
+        const option = document.getElementById("closeOption").value;
+        try {
+          let tx;
+          if (option === "paySeller") {
+            tx = await contractInstance.paySeller();
+          } else {
+            tx = await contractInstance.returnFunds();
+          }
+          await tx.wait();
+          document.getElementById("responseMessage").innerText = "Escrow closed successfully.";
+        } catch (err) {
+          console.error("Close escrow failed:", err);
+          document.getElementById("responseMessage").innerText = `Close escrow failed: ${err.message}`;
+        }
+      }
 
       window.addEventListener('load', async () => {
         if (window.ethereum) {
           const accounts = await ethereum.request({ method: 'eth_accounts' });
           if (accounts.length > 0) {
             myWallet = accounts[0];
-            console.log('Wallet detected:', myWallet);
-          } else {
-            console.log('Wallet not connected yet.');
+            await contractConnect();
           }
-        } else {
-          console.log('MetaMask not detected');
         }
       });
 
@@ -150,7 +208,7 @@
             document.getElementById('walletStatus').classList.remove('text-red-400');
             document.getElementById('walletStatus').classList.add('text-green-400');
             document.getElementById('walletButton').hidden = true;
-            contractConnect();
+            await contractConnect();
           } else {
             document.getElementById('walletStatus').innerText = "Click here to connect a crypto wallet:";
             document.getElementById('walletButton').hidden = false;
@@ -160,11 +218,6 @@
           document.getElementById('walletStatus').innerText = `Error: ${err.message}`;
         }
       }
-
-      function contractConnect() {}
-      function approveButton() {}
-      function openEscrow() {}
-      function closeEscrow() {}
     </script>
   </body>
 </html>
