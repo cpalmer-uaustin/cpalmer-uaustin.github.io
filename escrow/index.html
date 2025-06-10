@@ -110,7 +110,7 @@
     <script>
       let myWallet = null;
       let contractInstance;
-      const contractAddress = "0x5F33dC566c0010b423062933EA1487EB2E5B9423";
+      const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
       const tokenAddress = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";
 
       async function contractConnect() {
@@ -175,9 +175,9 @@
         try {
           let tx;
           if (option === "paySeller") {
-            tx = await contractInstance.paySeller();
+            tx = await contractInstance["paySeller"]();
           } else {
-            tx = await contractInstance.returnFunds();
+            tx = await contractInstance["returnFunds"]();
           }
           await tx.wait();
           document.getElementById("responseMessage").innerText = "Escrow closed successfully.";
