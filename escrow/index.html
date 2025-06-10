@@ -160,7 +160,7 @@
             return;
           }
 
-          const parsedAmount = ethers.utils.parseUnits(amount, 18);
+          const parsedAmount = BigInt(ethers.utils.parseUnits(amount, 18));
           const tx = await contractInstance.openEscrow(seller, mediator, parsedAmount);
           await tx.wait();
           document.getElementById("responseMessage").innerText = "Escrow opened successfully.";
