@@ -49,4 +49,4 @@ contract MyEscrow {
         amountToEscrow = 0;
     }
 
-}
+    }
