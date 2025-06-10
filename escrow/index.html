@@ -140,34 +140,39 @@
         }
       }
 
-      async function openEscrow() {
-        const seller = document.getElementById("sellerAddress").value.trim();
-        const mediator = document.getElementById("mediatorAddress").value.trim();
-        const amount = document.getElementById("amount").value;
+           async function openEscrow() {
+      const seller = document.getElementById("sellerAddress").value.trim();
+      const mediator = document.getElementById("mediatorAddress").value.trim();
+      const amount = document.getElementById("amount").value;
+    
+      if (!seller || !mediator || !amount) {
+        alert("Fill in all fields.");
+        return;
+      }
+    
+      if (!ethers.utils.isAddress(seller)) {
+        alert("Invalid seller address");
+        return;
+      }
+    
+      if (!ethers.utils.isAddress(mediator)) {
+        alert("Invalid mediator address");
+        return;
+      }
+    
+      try {
+        const parsedAmount = ethers.utils.parseUnits(amount, 18);
+        const tx = await contractInstance.openEscrow(seller, mediator, parsedAmount, {
+          gasLimit: 300000,
+        });
+        await tx.wait();
+        document.getElementById("responseMessage").innerText = "Escrow opened successfully.";
+      } catch (err) {
+        console.error("Open escrow failed:", err);
+        document.getElementById("responseMessage").innerText = `Open escrow failed: ${err.message}`;
+      }
+}
 
-        if (!seller || !mediator || !amount) {
-          alert("Fill in all fields.");
-          return;
-        }
-
-        try {
-          if (!ethers.utils.isAddress(seller)) {
-            alert("Invalid seller address");
-            return;
-          }
-          if (!ethers.utils.isAddress(mediator)) {
-            alert("Invalid mediator address");
-            return;
-          }
-
-          const parsedAmount = BigInt(ethers.utils.parseUnits(amount, 18));
-          const tx = await contractInstance.openEscrow(seller, mediator, parsedAmount);
-          await tx.wait();
-          document.getElementById("responseMessage").innerText = "Escrow opened successfully.";
-        } catch (err) {
-          console.error("Open escrow failed:", err);
-          document.getElementById("responseMessage").innerText = `Open escrow failed: ${err.message}`;
-        }
       }
 
       async function closeEscrow() {
