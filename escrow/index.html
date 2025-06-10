@@ -110,8 +110,8 @@
     <script>
       let myWallet = null;
       let contractInstance;
-      const contractAddress = "0x5F33dC566c0010b423062933EA1487EB2E5B9423"; // Replace with your contract address
-      const tokenAddress = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359"; // Replace with your ERC20 token address
+      const contractAddress = "YOUR_CONTRACT_ADDRESS_HERE";
+      const tokenAddress = "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359";
 
       async function contractConnect() {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -128,11 +128,9 @@
           return;
         }
         try {
-          const erc20Abi = [
-            "function approve(address spender, uint256 amount) public returns (bool)"
-          ];
+          const erc20Abi = ["function approve(address spender, uint256 amount) public returns (bool)"];
           const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, window.signer);
-          const tx = await tokenContract.approve(contractAddress, ethers.utils.parseEther(amount));
+          const tx = await tokenContract.approve(contractAddress, ethers.utils.parseUnits(amount, 18));
           await tx.wait();
           document.getElementById("responseMessage").innerText = "Token transfer approved.";
           document.getElementById("openButton").disabled = false;
@@ -143,8 +141,8 @@
       }
 
       async function openEscrow() {
-        const seller = document.getElementById("sellerAddress").value;
-        const mediator = document.getElementById("mediatorAddress").value;
+        const seller = document.getElementById("sellerAddress").value.trim();
+        const mediator = document.getElementById("mediatorAddress").value.trim();
         const amount = document.getElementById("amount").value;
 
         if (!seller || !mediator || !amount) {
@@ -153,17 +151,22 @@
         }
 
         try {
-          const parsedAmount = ethers.utils.parseEther(amount);
+          if (!ethers.utils.isAddress(seller)) {
+            alert("Invalid seller address");
+            return;
+          }
+          if (!ethers.utils.isAddress(mediator)) {
+            alert("Invalid mediator address");
+            return;
+          }
+
+          const parsedAmount = ethers.utils.parseUnits(amount, 18);
           const tx = await contractInstance.openEscrow(seller, mediator, parsedAmount);
           await tx.wait();
           document.getElementById("responseMessage").innerText = "Escrow opened successfully.";
         } catch (err) {
           console.error("Open escrow failed:", err);
-          if (err.data && err.data.message) {
-            document.getElementById("responseMessage").innerText = `Error: ${err.data.message}`;
-          } else {
-            document.getElementById("responseMessage").innerText = `Open escrow failed: ${err.message}`;
-          }
+          document.getElementById("responseMessage").innerText = `Open escrow failed: ${err.message}`;
         }
       }
 
