@@ -4,71 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escrow USDC NOW!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #0d0d1e;
+            --primary-color: #00e6e6; /* Neon Blue */
+            --secondary-color: #9933ff; /* Neon Purple */
+            --text-color: #e0e0e0; /* Light Gray */
+            --border-color: #00b3b3;
+            --glow-color-light: rgba(0, 230, 230, 0.5);
+            --glow-color-dark: rgba(0, 230, 230, 0.2);
+            --input-bg: #1a1a3a;
+            --button-hover-bg: #00cccc;
+            --error-color: #ff4d4d; /* Red for errors */
+            --success-color: #33ff33; /* Green for success */
+            --info-color: #00aaff; /* Blue for info */
+        }
+
         body {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Share Tech Mono', monospace;
             margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #121212, #222222, #333333);
-            color: #00ffff;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg-color), #1c1c3c);
+            color: var(--text-color);
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            padding-top: 100px;
-            padding-bottom: 100px;
+            line-height: 1.6;
         }
-        h1, h2, h3, p, label, span, button {
+
+        h1, h2, h3 {
             font-family: 'Orbitron', sans-serif;
-            color: #00ffff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: var(--primary-color);
+            text-shadow: 0 0 8px var(--glow-color-light);
+            margin-bottom: 20px;
         }
-        input, button, select {
-            margin-top: 30px;
-            padding: 20px;
-            font-size: 18px;
-            border: none;
+
+        h1 {
+            font-size: 3.5em; /* Large title */
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            animation: pulse-glow 2s infinite alternate;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 8px var(--glow-color-light), 0 0 15px var(--glow-color-dark);
+            }
+            to {
+                text-shadow: 0 0 12px var(--glow-color-light), 0 0 25px var(--glow-color-dark);
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: rgba(10, 10, 30, 0.8);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(0, 230, 230, 0.3);
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 20px;
         }
-        input:focus, button:focus, select:focus {
-            outline: none;
-            transform: scale(1.05);
-            box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3);
-        }
-        button {
-            background: linear-gradient(135deg, #00ffff, #00ff99);
-            color: #000;
-            cursor: pointer;
-        }
-        button:hover {
-            background: linear-gradient(135deg, #00ff99, #00cc66);
-        }
-        #walletInfo, .section {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 15px;
-            margin: 40px 0;
-            width: 80%;
-            max-width: 800px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        }
-        #walletStatus {
-            font-size: 24px;
-        }
+
         hr {
-            border: 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            width: 80%;
-            max-width: 800px;
-            margin: 40px 0;
+            border: none;
+            border-top: 1px dashed var(--border-color);
+            margin: 30px 0;
+            box-shadow: 0 0 5px var(--glow-color-dark);
         }
-        @font-face {
-            font-family: 'Orbitron';
-            src: url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        section, .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(20, 20, 50, 0.6);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 200, 200, 0.2);
+            box-shadow: inset 0 0 10px rgba(0, 200, 200, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            text-shadow: 0 0 5px var(--glow-color-dark);
+        }
+
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            margin-top: 5px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            color: var(--text-color);
+            font-size: 1em;
+            box-shadow: inset 0 0 8px rgba(0, 230, 230, 0.1);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 15px rgba(153, 51, 255, 0.4);
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 12px 25px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
+            box-shadow: 0 0 10px var(--glow-color-light);
+        }
+
+        button:hover {
+            background-color: var(--button-hover-bg);
+            box-shadow: 0 0 15px var(--glow-color-light), 0 0 25px rgba(0, 204, 204, 0.5);
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #333;
+            color: #888;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        #walletStatus {
+            color: var(--info-color);
+            text-shadow: 0 0 5px rgba(0, 170, 255, 0.3);
+        }
+        #walletStatus[style*="red"] {
+            color: var(--error-color) !important;
+            text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+        }
+        #walletStatus[style*="#0000FF"] { /* Specifically target the successful blue state */
+            color: var(--success-color) !important;
+            text-shadow: 0 0 5px rgba(51, 255, 51, 0.5);
+        }
+
+
+        #responseMessage {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--info-color); /* Default for messages */
+            text-shadow: 0 0 5px rgba(0, 170, 255, 0.3);
+        }
+        #responseMessage[style*="red"] {
+            color: var(--error-color) !important;
+            text-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+        }
+        #responseMessage[style*="blue"] {
+            color: var(--success-color) !important;
+            text-shadow: 0 0 5px rgba(51, 255, 51, 0.5);
+        }
+
+
+        b {
+            color: var(--secondary-color);
+            text-shadow: 0 0 5px rgba(153, 51, 255, 0.3);
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
@@ -77,162 +189,277 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
 </head>
 <body onload="checkWallet()">
-    <h1 style="font-size: 4em; margin-bottom: 40px;">Escrow USDC NOW!</h1>
-    <hr>
-    <section id="walletInfo">
-        <br><br>
-        <b>Wallet connection: </b><br>
-        <span id="walletStatus" style="color:red">Checking for a wallet connection...</span>
-        <button onclick="checkWallet()" id="walletButton">Connect wallet</button>
-    </section>
-    <h3>Status: <span id="responseMessage" style="color:blue"></span></h3>
-    <hr>
-    <div class="section" id="sectionClose">
-        <h2>Open escrow</h2>
-        Before you open an escrow account, you must approve the funds transfer from your wallet.<br>
-        <label for="amount">Amount</label>
-        <input type="number" id="amount" name="amount" min="1"><br>
-        <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button><br>
-        <label for="sellerAddress">Seller address</label>
-        <input type="text" id="sellerAddress" name="sellerAddress"><br>
-        <label for="mediatorAddress">Mediator address</label>
-        <input type="text" id="mediatorAddress" name="mediatorAddress"><br>
-        <button id="openButton"  onclick="openEscrow()" diabled>Open escrow</button>
+    <div class="container">
+        <h1>Escrow USDC NOW!</h1>
+        <hr>
+
+        <section id="walletInfo">
+            <h2>Wallet Connection</h2>
+            <b>Wallet connection: </b><br>
+            <span id="walletStatus" style="color:red">Checking for a wallet connection...</span>
+            <button onclick="checkWallet()" id="walletButton">Connect Wallet</button>
+        </section>
+
+        <h3>Status: <span id="responseMessage" style="color:blue"></span></h3>
+        <hr>
+
+        <div class="section" id="sectionOpen">
+            <h2>Open Escrow</h2>
+            Before you open an escrow account, you must approve the funds transfer from your wallet.<br>
+            <label for="amount">Amount (USDC)</label>
+            <input type="number" id="amount" name="amount" min="1"><br>
+            <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button><br>
+            <label for="sellerAddress">Seller Address</label>
+            <input type="text" id="sellerAddress" name="sellerAddress" placeholder="0x..."><br>
+            <label for="mediatorAddress">Mediator Address</label>
+            <input type="text" id="mediatorAddress" name="mediatorAddress" placeholder="0x..."><br>
+            <button id="openButton" onclick="openEscrow()" disabled>Open Escrow</button>
+        </div>
+
+        <hr>
+
+        <div class="section" id="sectionClose">
+            <h2>Close Escrow</h2>
+            <label for="closeOption">Close Escrow Option</label>
+            <select id="closeOption" name="closeOption" required>
+                <option value="paySeller">Pay Seller</option>
+                <option value="returnFunds">Return Funds</option>
+            </select><br>
+            <button id="closeButton" onclick="closeEscrow()">Close Escrow</button>
+        </div>
     </div>
-    <hr>
-    <div class="section" id="sectionClose">
-        <h2>Close escrow</h2>
-        <label for="closeOption">Close escrow option</label>
-        <select id="closeOption" name="closeOption" required>
-            <option value="paySeller">Pay seller</option>
-            <option value="returnFunds">Return funds</option>
-        </select><br>
-        <button id="closeButton" onclick="closeEscrow()">Close escrow</button>
-    </div>
+
     <script>
         // These vars will be used in multiple functions.
         var myWallet;
         var myContract;
         var provider;
         var signer;
+
+        // NOTE: You need to define escrowContractAddress, escrowTokenAddress, escrowABI, and escrowTokenABI
+        // in your 'escrowABI.js' file. Example:
+        // const escrowContractAddress = "YOUR_ESCROW_CONTRACT_ADDRESS";
+        // const escrowTokenAddress = "YOUR_USDC_TOKEN_ADDRESS"; // e.g., 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 for mainnet USDC
+        // const escrowABI = [ ... ]; // Your escrow contract's ABI
+        // const escrowTokenABI = [ ... ]; // Your USDC token's ABI (at least for 'approve' and 'decimals')
+
         async function checkWallet() {
-            // Get wallet addr
-            var accountList = await ethereum.request({ method: 'eth_accounts' });
-            myWallet = accountList[0];
-            // If not connected to wallet, open wallet to connect
-            if (!myWallet) {
-                await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                    params: [{
-                        eth_accounts: {}
-                    }]
-                });
-                // Reload wallet address
-                accountList = await ethereum.request({ method: 'eth_accounts' });
-                myWallet = accountList[0];
-            };
-            // Test again: If not connected to wallet, show a button to allow wallet connection.
-            if (!myWallet) {
-                document.getElementById('walletStatus').innerHTML = "Click here to connect a crypto wallet: ";
+            if (typeof window.ethereum === 'undefined') {
+                document.getElementById('walletStatus').innerHTML = "MetaMask not detected. Please install MetaMask.";
+                document.getElementById('walletStatus').style.color = "var(--error-color)";
+                document.getElementById('walletButton').hidden = true;
+                return;
+            }
+
+            try {
+                // Request accounts if not already connected
+                const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+                myWallet = accounts[0];
+
+                if (!myWallet) {
+                    document.getElementById('walletStatus').innerHTML = "Click here to connect a crypto wallet: ";
+                    document.getElementById('walletButton').hidden = false;
+                    document.getElementById('walletStatus').style.color = "var(--error-color)";
+                } else {
+                    document.getElementById('walletStatus').innerHTML = " ✓ Your crypto wallet is connected.<br>Address: " + myWallet.substring(0, 6) + "..." + myWallet.substring(myWallet.length - 4);
+                    document.getElementById('walletStatus').style.color = "var(--success-color)";
+                    document.getElementById("walletButton").hidden = true;
+                }
+                contractConnect();
+            } catch (error) {
+                console.error("Error connecting to wallet:", error);
+                document.getElementById('walletStatus').innerHTML = "Failed to connect wallet: " + error.message;
+                document.getElementById('walletStatus').style.color = "var(--error-color)";
                 document.getElementById('walletButton').hidden = false;
-            } else {
-                document.getElementById('walletStatus').innerHTML = " &#x2713; Your crypto wallet is connected. <br>";
-                document.getElementById('walletStatus').style.color = "#00ffff";
-                document.getElementById("walletButton").hidden = true;
-            };
-            console.log("token: "+escrowTokenAddress);
-            contractConnect();
-        };
-        async function contractConnect() {
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
-            provider = new ethers.providers.Web3Provider(window.ethereum);
-            myContract = new ethers.Contract(escrowContractAddress, escrowABI, provider);
-            signer = provider.getSigner();
-            // Test the connection by calling data from the contract
-            var buyer = await myContract.buyerAddress();
-            console.log("buyer="+buyer);
-            if (buyer=="0x0000000000000000000000000000000000000000") {
-                document.getElementById('responseMessage').innerHTML = "No funds in escrow.";
-                document.getElementById('responseMessage').style.color = "blue";
-                document.getElementById('openButton').disabled = true;
-                document.getElementById('closeButton').disabled = true;
-                document.getElementById('sellerAddress').disabled = true;
-                document.getElementById('mediatorAddress').disabled = true;
             }
         }
-        async function approveButton(){
+
+        async function contractConnect() {
+            if (!myWallet) {
+                console.log("Wallet not connected, skipping contract connection.");
+                return;
+            }
+            try {
+                provider = new ethers.providers.Web3Provider(window.ethereum);
+                myContract = new ethers.Contract(escrowContractAddress, escrowABI, provider);
+                signer = provider.getSigner();
+
+                // Test the connection by calling data from the contract
+                const buyer = await myContract.buyerAddress();
+                console.log("buyer=" + buyer);
+
+                if (buyer == "0x0000000000000000000000000000000000000000") {
+                    document.getElementById('responseMessage').innerHTML = "No active escrow. Open a new one!";
+                    document.getElementById('responseMessage').style.color = "var(--info-color)";
+                    document.getElementById('openButton').disabled = true;
+                    document.getElementById('closeButton').disabled = true;
+                    document.getElementById('sellerAddress').disabled = true;
+                    document.getElementById('mediatorAddress').disabled = true;
+                    document.getElementById('approveButton').disabled = false; // Enable approve for new escrow
+                } else {
+                    document.getElementById('responseMessage').innerHTML = "An escrow is currently active.";
+                    document.getElementById('responseMessage').style.color = "var(--success-color)";
+                    document.getElementById('openButton').disabled = true;
+                    document.getElementById('approveButton').disabled = true;
+                    document.getElementById('sellerAddress').disabled = true;
+                    document.getElementById('mediatorAddress').disabled = true;
+                    document.getElementById('closeButton').disabled = false;
+                }
+            } catch (error) {
+                console.error("Error connecting to contract:", error);
+                document.getElementById('responseMessage').innerHTML = `Error connecting to contract: ${error.message}`;
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+            }
+        }
+
+        async function approveButton() {
             console.log("approveButton() called.");
             let getAmt = document.getElementById('amount').value;
+            if (getAmt <= 0) {
+                alert('Please enter a valid amount to approve.');
+                return;
+            }
+
             document.getElementById('amount').disabled = true;
-            document.getElementById('responseMessage').innerHTML = "<b>Approval in progress...</b>";
-            document.getElementById('responseMessage').style.color = "red";
-            approveAmt = BigInt(getAmt*10**6);
-            console.log(getAmt + " -- " + approveAmt);
-            var tokenContract  = new ethers.Contract(escrowTokenAddress, escrowTokenABI, signer);
+            document.getElementById('approveButton').disabled = true;
+            document.getElementById('responseMessage').innerHTML = "<b>Approval in progress... Confirm in your wallet.</b>";
+            document.getElementById('responseMessage').style.color = "var(--info-color)";
+
+            // USDC has 6 decimals
+            const approveAmt = ethers.utils.parseUnits(getAmt.toString(), 6);
+            console.log(`${getAmt} USDC --> ${approveAmt.toString()} raw units`);
+
             try {
+                const tokenContract = new ethers.Contract(escrowTokenAddress, escrowTokenABI, signer);
                 const tx = await tokenContract.approve(escrowContractAddress, approveAmt);
+                document.getElementById('responseMessage').innerHTML = "Approval transaction sent. Waiting for confirmation...";
+                document.getElementById('responseMessage').style.color = "var(--info-color)";
+
                 const receipt = await tx.wait();
-                document.getElementById('responseMessage').innerHTML = "Funds transfer approved.";
-                document.getElementById('responseMessage').style.color = "blue";
+                console.log("Approval receipt:", receipt);
+                document.getElementById('responseMessage').innerHTML = "Funds transfer approved. You can now open escrow.";
+                document.getElementById('responseMessage').style.color = "var(--success-color)";
                 document.getElementById('sellerAddress').disabled = false;
                 document.getElementById('mediatorAddress').disabled = false;
                 document.getElementById('openButton').disabled = false;
-                document.getElementById('approveButton').disabled = true;
-                document.getElementById('closeButton').disabled = true;
+                document.getElementById('closeButton').disabled = true; // Still disabled until escrow is open
             } catch (error) {
                 console.error("Error approving token transfer:", error);
-                document.getElementById('responseMessage').innerText = `Error: ${error.message}`;
+                document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('approveButton').disabled = false; // Re-enable approve button on error
+                document.getElementById('amount').disabled = false;
             }
-        };
+        }
+
         async function openEscrow() {
-            document.getElementById('responseMessage').innerHTML = "Open account request sent.";
-            document.getElementById('responseMessage').style.color = "red";
+            document.getElementById('responseMessage').innerHTML = "Open account request sent. Confirm in your wallet.";
+            document.getElementById('responseMessage').style.color = "var(--info-color)";
+            document.getElementById('openButton').disabled = true;
+
+
             const amount = document.getElementById('amount').value;
             const sellerAddress = document.getElementById('sellerAddress').value;
             const mediatorAddress = document.getElementById('mediatorAddress').value;
+
             if (amount <= 0 || !sellerAddress || !mediatorAddress) {
-                alert('Please enter valid details for all fields.');
+                alert('Please enter valid details for all fields (amount > 0, valid addresses).');
+                document.getElementById('responseMessage').innerHTML = "Please enter valid details for all fields.";
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('openButton').disabled = false; // Re-enable on validation error
                 return;
             }
-            var wholeNumAmount = BigInt(amount*10**6);
-            console.log(`Opening escrow with amount: ${wholeNumAmount}, Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress}`);
+
+            // Validate addresses (basic check)
+            if (!ethers.utils.isAddress(sellerAddress) || !ethers.utils.isAddress(mediatorAddress)) {
+                alert('Please enter valid Ethereum addresses for Seller and Mediator.');
+                document.getElementById('responseMessage').innerHTML = "Invalid seller or mediator address.";
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('openButton').disabled = false; // Re-enable on validation error
+                return;
+            }
+
+
+            const wholeNumAmount = ethers.utils.parseUnits(amount.toString(), 6); // USDC has 6 decimals
+            console.log(`Opening escrow with amount: ${wholeNumAmount.toString()} (raw), Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress}`);
+
             try {
                 const contractWithSigner = myContract.connect(signer);
                 const tx = await contractWithSigner.openEscrow(wholeNumAmount, sellerAddress, mediatorAddress);
+                document.getElementById('responseMessage').innerHTML = "Escrow open transaction sent. Waiting for confirmation...";
+                document.getElementById('responseMessage').style.color = "var(--info-color)";
+
                 const receipt = await tx.wait();
-                console.log(`Transaction successful with hash: ${receipt.transactionHash}`);
-                document.getElementById('responseMessage').innerHTML = "Escrow account opened.";
-                document.getElementById('responseMessage').style.color = "blue";
-                document.getElementById('closeButton').disabled = false;
+                console.log("Transaction successful with hash: " + receipt.transactionHash);
+                document.getElementById('responseMessage').innerHTML = "Escrow account opened successfully!";
+                document.getElementById('responseMessage').style.color = "var(--success-color)";
+
+                // Disable input fields after escrow is open
+                document.getElementById('amount').disabled = true;
                 document.getElementById('sellerAddress').disabled = true;
                 document.getElementById('mediatorAddress').disabled = true;
-                document.getElementById('openButton').disabled = true;
                 document.getElementById('approveButton').disabled = true;
+                document.getElementById('openButton').disabled = true;
+                document.getElementById('closeButton').disabled = false;
+
             } catch (error) {
                 console.error("Error calling escrowOpen():", error);
                 document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('openButton').disabled = false; // Re-enable button on error
             }
         }
+
         async function closeEscrow() {
-            document.getElementById('responseMessage').innerHTML = "Close account request sent.";
-            document.getElementById('responseMessage').style.color = "red";
+            document.getElementById('responseMessage').innerHTML = "Close account request sent. Confirm in your wallet.";
+            document.getElementById('responseMessage').style.color = "var(--info-color)";
             document.getElementById('closeButton').disabled = true;
+
             var closeOption = document.getElementById('closeOption').value;
-            var boolVar = 0;
-            if (closeOption=="paySeller") {
-                boolVar = 1;
+            var paySellerBool; // True if paying seller, false if returning funds
+            if (closeOption === "paySeller") {
+                paySellerBool = true;
+            } else if (closeOption === "returnFunds") {
+                paySellerBool = false;
+            } else {
+                alert("Invalid close option selected.");
+                document.getElementById('responseMessage').innerHTML = "Invalid close option.";
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('closeButton').disabled = false;
+                return;
             }
-            console.log(`Closing escrow with option: ${closeOption} --> `+boolVar);
+
+            console.log(`Closing escrow with option: ${closeOption} (paySeller=${paySellerBool})`);
+
             try {
                 const contractWithSigner = myContract.connect(signer);
-                const tx = await contractWithSigner.closeEscrow(boolVar);
+                const tx = await contractWithSigner.closeEscrow(paySellerBool);
+                document.getElementById('responseMessage').innerHTML = "Escrow close transaction sent. Waiting for confirmation...";
+                document.getElementById('responseMessage').style.color = "var(--info-color)";
+
                 const receipt = await tx.wait();
-                console.log(`Transaction successful with hash: ${receipt.transactionHash}`);
-                document.getElementById('responseMessage').innerHTML = "Escrow account closed.";
-                document.getElementById('responseMessage').style.color = "blue";
+                console.log("Transaction successful with hash: " + receipt.transactionHash);
+                document.getElementById('responseMessage').innerHTML = "Escrow account closed successfully!";
+                document.getElementById('responseMessage').style.color = "var(--success-color)";
+
+                // After closing, revert to initial state
+                document.getElementById('amount').disabled = false;
+                document.getElementById('sellerAddress').disabled = true; // Disable until new approve
+                document.getElementById('mediatorAddress').disabled = true; // Disable until new approve
+                document.getElementById('approveButton').disabled = false;
+                document.getElementById('openButton').disabled = true;
+                document.getElementById('closeButton').disabled = true;
+
+                // Clear input fields for next escrow
+                document.getElementById('amount').value = '';
+                document.getElementById('sellerAddress').value = '';
+                document.getElementById('mediatorAddress').value = '';
+
             } catch (error) {
                 console.error("Error calling escrowClose():", error);
                 document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('closeButton').disabled = false; // Re-enable button on error
             }
         }
     </script>
