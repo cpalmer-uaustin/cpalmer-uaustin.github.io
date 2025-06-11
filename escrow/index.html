@@ -1,66 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Escrow Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Escrow POLYGON NOW!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            background: linear-gradient(120deg, #1f1c2c, #928dab);
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            padding-top: 60px;
+            min-height: 100vh;
         }
-        input, button {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 16px;
+
+        /* Professional bold header with background highlight */
+        .header-title {
+            font-weight: 900;
+            font-size: 3.2rem;
+            letter-spacing: 2px;
+            background: #17c3b2;
+            color: #0a0a0a;
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(23, 195, 178, 0.6);
+            margin-bottom: 10px;
+            user-select: none;
         }
+
+        .lead-text {
+            font-weight: 500;
+            color: #a0e7d6;
+            font-size: 1.25rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 40px;
+            user-select: none;
+        }
+
+        .card {
+            background-color: rgba(23, 195, 178, 0.1); /* subtle teal tinted */
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 36px rgba(23, 195, 178, 0.6);
+        }
+
+        h1, h2, h3, h5 {
+            font-weight: 700;
+            color: #e0f7f4;
+        }
+
+        label {
+            color: #b2dfdb;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            width: 100%;
+            font-weight: 700;
+            text-transform: uppercase;
+            background-color: #17c3b2;
+            border-color: #17c3b2;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #138a82;
+            border-color: #138a82;
+        }
+
+        .btn-outline-success {
+            width: 100%;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-color: #17c3b2;
+            color: #17c3b2;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-outline-success:hover {
+            background-color: #17c3b2;
+            color: #0a0a0a;
+        }
+
+        .btn-danger {
+            width: 100%;
+            font-weight: 700;
+            text-transform: uppercase;
+            background-color: #f44336;
+            border-color: #f44336;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn-danger:hover {
+            background-color: #b71c1c;
+            border-color: #b71c1c;
+        }
+
+        .form-control {
+            background-color: rgba(23, 195, 178, 0.15);
+            border: none;
+            color: #e0f7f4;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .form-control:focus {
+            background-color: rgba(23, 195, 178, 0.3);
+            color: #0a0a0a;
+            outline: none;
+            box-shadow: 0 0 8px #17c3b2;
+        }
+        .form-control::placeholder {
+            color: #a0d6cc;
+            font-weight: 400;
+        }
+
+        .alert {
+            background-color: rgba(23, 195, 178, 0.15);
+            color: #17c3b2;
+            border: none;
+            font-weight: 600;
+            user-select: none;
+            min-height: 40px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        #walletStatus {
+            font-weight: 600;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #17c3b2; /* teal */
+            user-select: none;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Layout changes */
+        .row.g-4 {
+            flex-direction: column; /* stack vertically */
+        }
+        .col-md-6 {
+            width: 100%;
+        }
+        .mb-4 {
+            margin-bottom: 2rem !important;
+        }
+
+        /* Make the connect wallet button smaller and subtle */
+        #walletButton {
+            max-width: 200px;
+            margin: 0 auto;
+        }
+
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./escrowABI.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
 </head>
-<body  onload="checkWallet()">
+<body onload="checkWallet()">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="header-title">POLYGON Escrow Service</h1>
+            <p class="lead-text">Secure, Transparent Crypto Transactions</p>
+        </div>
 
-    <h1>My Escrow Page</h1>
-    <hr>
-    
-    <!----->
-    <section id="walletInfo">
-        <br><br>
-        <b>Wallet connection: </b><br>
-        <span id="walletStatus" style="color:red">Checking for a wallet connection...</span>
-        <button onclick="checkWallet()" id="walletButton">Connect wallet</button>    
-      </section>
-      <!----->
+        <div class="card p-4 mb-4">
+            <h5 class="text-center mb-3">🔗 Wallet Status</h5>
+            <p class="text-center" id="walletStatus">Checking for wallet...</p>
+            <div class="text-center">
+                <button onclick="checkWallet()" id="walletButton" class="btn btn-outline-light">Connect Wallet</button>
+            </div>
+        </div>
 
-      <h3>Status: <span id="responseMessage" style="color:blue"></span></h3>
+        <div id="responseBox" class="alert text-center">
+            <strong>Status:</strong> <span id="responseMessage"></span>
+        </div>
 
-    <hr>
-    <div class="section" id="sectionClose">
-        <h2>Open escrow</h2>
-        Before you open an escrow account, you must approve the funds transfer from your wallet.<br>
-        <label for="amount">Amount</label>
-        <input type="number" id="amount" name="amount" min="1"><br>
-        <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button><br>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card p-4 mb-4">
+                    <h3 class="text-center mb-3">🚀 Open Escrow</h3>
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" class="form-control mb-2" placeholder="Enter amount" min="1">
+                    <button id="approveButton" onclick="approveButton()" class="btn btn-outline-success mb-3">Approve Token Transfer</button>
+                    <label for="sellerAddress">Seller Address</label>
+                    <input type="text" id="sellerAddress" class="form-control mb-2" disabled>
+                    <label for="mediatorAddress">Mediator Address</label>
+                    <input type="text" id="mediatorAddress" class="form-control mb-3" disabled>
+                    <button id="openButton" onclick="openEscrow()" class="btn btn-primary" disabled>Open Escrow</button>
+                </div>
+            </div>
 
-        <label for="sellerAddress">Seller address</label>
-        <input type="text" id="sellerAddress" name="sellerAddress"><br>
-        <label for="mediatorAddress">Mediator address</label>
-        <input type="text" id="mediatorAddress" name="mediatorAddress"><br>
-        <button id="openButton"  onclick="openEscrow()" diabled>Open escrow</button>
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3 class="text-center mb-3">✅ Close Escrow</h3>
+                    <label for="closeOption">Close Option</label>
+                    <select id="closeOption" class="form-select mb-3">
+                        <option value="paySeller">Pay Seller</option>
+                        <option value="returnFunds">Return Funds</option>
+                    </select>
+                    <button id="closeButton" onclick="closeEscrow()" class="btn btn-danger">Close Escrow</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <hr>
-    <div class="section" id="sectionClose">
-        <h2>Close escrow</h2>
-        <label for="closeOption">Close escrow option</label>
-        <select id="closeOption" name="closeOption" required>
-            <option value="paySeller">Pay seller</option>
-            <option value="returnFunds">Return funds</option>
-        </select><br>
-        <button id="closeButton" onclick="closeEscrow()">Close escrow</button>
-    </div>
 
+    <!-- Keep all original script and blockchain logic here -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js"></script>
+    <script src="./escrowABI.js"></script>
 
     <script>
         // These vars will be used in multiple functions.
@@ -70,7 +223,6 @@
         var signer;
 
         async function checkWallet() {
-            
             // Get wallet addr
             var accountList = await ethereum.request({ method: 'eth_accounts' });
             myWallet = accountList[0] ;
@@ -79,11 +231,7 @@
             if (!myWallet) {
                 await window.ethereum.request({
                     method: "eth_requestAccounts", // This checks wallet connection
-                params: [
-                {
-                    eth_accounts: {}
-                }
-                ]
+                    params: [{ eth_accounts: {} }]
                 });
 
                 // Reload wallet address
@@ -91,14 +239,13 @@
                 myWallet = accountList[0] ;
             };
 
-            
             // Test again: If not connected to wallet, show a button to allow wallet connection.
             if (!myWallet) {
                 document.getElementById('walletStatus').innerHTML = "Click here to connect a crypto wallet: " ;
                 document.getElementById('walletButton').hidden = false ;
             } else {
                 document.getElementById('walletStatus').innerHTML = " &#x2713; Your crypto wallet is connected. <br>" ;
-                document.getElementById('walletStatus').style.color = "#0000FF" ;
+                document.getElementById('walletStatus').style.color = "#17c3b2" ;
                 document.getElementById("walletButton").hidden = true ;
             };
 
@@ -117,8 +264,8 @@
             console.log("buyer="+buyer);
             if (buyer=="0x0000000000000000000000000000000000000000") {
                 document.getElementById('responseMessage').innerHTML = "No funds in escrow." ;
-                document.getElementById('responseMessage').style.color = "blue" ;
-                document.getElementById('openButton').disabled = true; 
+                document.getElementById('responseMessage').style.color = "#17c3b2" ;
+                document.getElementById('openButton').disabled = false; 
                 document.getElementById('closeButton').disabled = true; 
                 document.getElementById('sellerAddress').disabled = true; 
                 document.getElementById('mediatorAddress').disabled = true; 
@@ -139,8 +286,8 @@
             try {
                 const tx = await tokenContract.approve(escrowContractAddress, approveAmt); 
                 const receipt = await tx.wait();
-                document.getElementById('responseMessage').innerHTML = "Funds transer approved." ;
-                document.getElementById('responseMessage').style.color = "blue" ;
+                document.getElementById('responseMessage').innerHTML = "Funds transfer approved." ;
+                document.getElementById('responseMessage').style.color = "#17c3b2" ;
                 document.getElementById('sellerAddress').disabled = false; 
                 document.getElementById('mediatorAddress').disabled = false; 
                 document.getElementById('openButton').disabled = false; 
@@ -148,11 +295,9 @@
                 document.getElementById('closeButton').disabled = true; 
             } catch (error) {
                 console.error("Error approving token transfer:", error);
-                document.getElementById('responseMessage').innerText = Error: ${error.message};
+                document.getElementById('responseMessage').innerText = `Error: ${error.message}`;
             }
-    
         } ;
-
 
         async function openEscrow() {
             document.getElementById('responseMessage').innerHTML = "Open account request sent." ;
@@ -166,15 +311,15 @@
                 return;
             }
             var wholeNumAmount = BigInt(amount*10**18);
-            console.log(Opening escrow with amount: ${wholeNumAmount}, Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress});
+            console.log(`Opening escrow with amount: ${wholeNumAmount}, Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress}`);
             
             try {
                 const contractWithSigner = myContract.connect(signer);
                 const tx = await contractWithSigner.openEscrow(wholeNumAmount, sellerAddress, mediatorAddress);
                 const receipt = await tx.wait();
-                console.log(Transaction successful with hash: ${receipt.transactionHash});
+                console.log(`Transaction successful with hash: ${receipt.transactionHash}`);
                 document.getElementById('responseMessage').innerHTML = "Escrow account opened." ;
-                document.getElementById('responseMessage').style.color = "blue" ;
+                document.getElementById('responseMessage').style.color = "#17c3b2" ;
                 document.getElementById('closeButton').disabled = false; 
                 document.getElementById('sellerAddress').disabled = true; 
                 document.getElementById('mediatorAddress').disabled = true; 
@@ -182,12 +327,11 @@
                 document.getElementById('approveButton').disabled = true; 
             } catch (error) {
                 console.error("Error calling escrowOpen():", error);
-                document.getElementById('responseMessage').innerHTML = Error: ${error.message};
+                document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
             }
         }
 
         async function closeEscrow() {
-            
             document.getElementById('responseMessage').innerHTML = "Close account request sent." ;
             document.getElementById('responseMessage').style.color = "red" ;
             document.getElementById('closeButton').disabled = true; 
@@ -197,18 +341,18 @@
             if (closeOption=="paySeller") {
                 boolVar = 1;
             }
-            console.log(Closing escrow with option: ${closeOption} --> +boolVar);
+            console.log(`Closing escrow with option: ${closeOption} --> `+boolVar);
             
             try {
                 const contractWithSigner = myContract.connect(signer);
                 const tx = await contractWithSigner.closeEscrow(boolVar);
                 const receipt = await tx.wait();
-                console.log(Transaction successful with hash: ${receipt.transactionHash});
+                console.log(`Transaction successful with hash: ${receipt.transactionHash}`);
                 document.getElementById('responseMessage').innerHTML = "Escrow account closed." ;
-                document.getElementById('responseMessage').style.color = "blue" ;
+                document.getElementById('responseMessage').style.color = "#17c3b2" ;
             } catch (error) {
                 console.error("Error calling escrowClose():", error);
-                document.getElementById('responseMessage').innerHTML = Error: ${error.message};
+                document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
             }
         }
     </script>
