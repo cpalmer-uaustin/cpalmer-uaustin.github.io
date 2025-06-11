@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.28;
+pragma solidity ^0.8.26;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract MyEscrow {
 
     // Replace this address with the token you created (or whatever token you want to use).
-    address constant tokenToEscrow = 0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359 ;
+    address constant tokenToEscrow = 0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6 ;
     // This tells the contract that the address you provided is a token that can be transferred.
     IERC20 escrowToken = IERC20(tokenToEscrow); 
     address public buyerAddress = address(0);
@@ -49,4 +49,16 @@ contract MyEscrow {
         amountToEscrow = 0;
     }
 
+
+    /* Note: The following function is strictly for testing puposes.
+        If your code above doesn't work for some reason, your tokens can get 
+        stuck in the smart contract with no way to get them out.
+        The cancel() function will send all the tokens back to your wallet.
+        You should delete this function once your code is working correctly.
+        If you don't someone could steal the tokens from the contract.
+    */
+    function cancel() public {
+        escrowToken.approve(address(this), amountToEscrow);
+        escrowToken.transferFrom(address(this), msg.sender, amountToEscrow);
     }
+}
