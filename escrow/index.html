@@ -16,6 +16,32 @@
             min-height: 100vh;
         }
 
+        .landing {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .landing h1 {
+            font-size: 64px;
+            color: #00f0ff;
+            text-shadow: 0 0 12px #00f0ff, 0 0 20px #0ff;
+            cursor: pointer;
+        }
+
+        .landing p {
+            font-size: 24px;
+            color: #00fff7;
+            margin-top: 10px;
+        }
+
+        .main-content {
+            display: none;
+        }
+
         h1, h2, h3 {
             color: #00f0ff;
             text-shadow: 0 0 8px #00f0ff, 0 0 12px #0ff;
@@ -87,44 +113,59 @@
     <script type="text/javascript" src="./escrowABI.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
 </head>
-<body onload="checkWallet()">
+<body>
 
-    <h1>ESCROW USDC NOW</h1>
-    <hr>
-
-    <section id="walletInfo">
-        <b>Wallet connection:</b><br>
-        <span id="walletStatus">Checking for a wallet connection...</span><br>
-        <button onclick="checkWallet()" id="walletButton">Connect Wallet</button>
-    </section>
-
-    <h3>Status: <span id="responseMessage" style="color:#00fff7;"></span></h3>
-
-    <hr>
-    <div class="section" id="sectionOpen">
-        <h2>Open Escrow</h2>
-        Before you open an escrow account, you must approve the funds transfer from your wallet.<br>
-        <label for="amount">Amount</label>
-        <input type="number" id="amount" name="amount" min="1"><br>
-        <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button><br>
-
-        <label for="sellerAddress">Seller address</label>
-        <input type="text" id="sellerAddress" name="sellerAddress"><br>
-        <label for="mediatorAddress">Mediator address</label>
-        <input type="text" id="mediatorAddress" name="mediatorAddress"><br>
-        <button id="openButton" onclick="openEscrow()" disabled>Open Escrow</button>
+    <div class="landing" onclick="enterSite()">
+        <h1>ESCROW USDC</h1>
+        <p>Click here</p>
     </div>
 
-    <hr>
-    <div class="section" id="sectionClose">
-        <h2>Close Escrow</h2>
-        <label for="closeOption">Close escrow option</label>
-        <select id="closeOption" name="closeOption" required>
-            <option value="paySeller">Pay seller</option>
-            <option value="returnFunds">Return funds</option>
-        </select><br>
-        <button id="closeButton" onclick="closeEscrow()">Close Escrow</button>
+    <div class="main-content">
+        <h1>ESCROW USDC NOW</h1>
+        <hr>
+
+        <section id="walletInfo">
+            <b>Wallet connection:</b><br>
+            <span id="walletStatus">Checking for a wallet connection...</span><br>
+            <button onclick="checkWallet()" id="walletButton">Connect Wallet</button>
+        </section>
+
+        <h3>Status: <span id="responseMessage" style="color:#00fff7;"></span></h3>
+
+        <hr>
+        <div class="section" id="sectionOpen">
+            <h2>Open Escrow</h2>
+            Before you open an escrow account, you must approve the funds transfer from your wallet.<br>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" min="1"><br>
+            <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button><br>
+
+            <label for="sellerAddress">Seller address</label>
+            <input type="text" id="sellerAddress" name="sellerAddress"><br>
+            <label for="mediatorAddress">Mediator address</label>
+            <input type="text" id="mediatorAddress" name="mediatorAddress"><br>
+            <button id="openButton" onclick="openEscrow()" disabled>Open Escrow</button>
+        </div>
+
+        <hr>
+        <div class="section" id="sectionClose">
+            <h2>Close Escrow</h2>
+            <label for="closeOption">Close escrow option</label>
+            <select id="closeOption" name="closeOption" required>
+                <option value="paySeller">Pay seller</option>
+                <option value="returnFunds">Return funds</option>
+            </select><br>
+            <button id="closeButton" onclick="closeEscrow()">Close Escrow</button>
+        </div>
     </div>
+
+    <script>
+        function enterSite() {
+            document.querySelector('.landing').style.display = 'none';
+            document.querySelector('.main-content').style.display = 'block';
+            checkWallet();
+        }
+    </script>
 
     <!-- JS logic remains unchanged -->
     <!-- ... (keep your original JS code here) -->
