@@ -5,80 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escrow USDC NOW!</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Quicksand:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
 
         body {
             margin: 0;
             padding: 20px;
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #fbeec1, #f8b195);
-            color: #3b3b3b;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #00fff7;
             min-height: 100vh;
         }
 
         h1, h2, h3 {
-            font-family: 'Shrikhand', cursive;
-            color: #d7263d;
-            text-shadow: 2px 2px #fbb13c;
+            color: #00f0ff;
+            text-shadow: 0 0 8px #00f0ff, 0 0 12px #0ff;
         }
 
         hr {
             border: none;
             height: 3px;
-            background: linear-gradient(to right, #fbb13c, #ffffff, #d7263d);
+            background: linear-gradient(to right, #00f0ff, #2c5364);
             margin: 30px 0;
         }
 
         .section {
-            border: 4px dotted #fbb13c;
-            border-radius: 15px;
+            border: 2px solid #00f0ff;
+            border-radius: 12px;
             padding: 25px;
             margin-bottom: 30px;
-            background-color: #fff8e1;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px #00f0ff44;
         }
 
         label {
             display: block;
             margin-top: 12px;
             font-weight: bold;
-            color: #d7263d;
+            color: #0ff;
         }
 
         input, select {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
-            border: 2px solid #fbb13c;
-            border-radius: 8px;
-            background-color: #fffaf0;
-            color: #3b3b3b;
+            border: 1px solid #00f0ff;
+            border-radius: 6px;
+            background-color: #102a43;
+            color: #00fff7;
             font-size: 16px;
         }
 
         button {
             margin-top: 15px;
             padding: 12px 24px;
-            background: #d7263d;
-            color: #fff;
+            background: #00f0ff;
+            color: #102a43;
             font-weight: bold;
             border: none;
             border-radius: 8px;
-            font-family: 'Shrikhand', cursive;
+            font-family: 'Orbitron', sans-serif;
             cursor: pointer;
-            box-shadow: 2px 2px 5px #fbb13c;
-            transition: background 0.3s ease;
+            box-shadow: 0 0 12px #00f0ff99;
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background: #fbb13c;
-            color: #3b3b3b;
+            background: #00fff7;
+            color: #000;
+            box-shadow: 0 0 18px #00fff799;
         }
 
         #walletStatus {
             font-size: 16px;
             margin-top: 10px;
-            color: #d7263d;
+            color: #00fff7;
         }
     </style>
 
@@ -98,7 +98,7 @@
         <button onclick="checkWallet()" id="walletButton">Connect Wallet</button>
     </section>
 
-    <h3>Status: <span id="responseMessage" style="color:#d7263d;"></span></h3>
+    <h3>Status: <span id="responseMessage" style="color:#00fff7;"></span></h3>
 
     <hr>
     <div class="section" id="sectionOpen">
