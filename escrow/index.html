@@ -9,7 +9,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #12c2e9, #f64f59, #c4302b);
+            background: linear-gradient(135deg, #121212, #222222, #333333);
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -17,6 +17,8 @@
             justify-content: center;
             height: 100vh;
             text-align: center;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
         h1, h2, h3 {
             font-family: 'Orbitron', sans-serif;
@@ -26,7 +28,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         input, button, select {
-            margin-top: 10px;
+            margin-top: 20px;
             padding: 15px;
             font-size: 16px;
             border: none;
@@ -47,10 +49,10 @@
             background: linear-gradient(135deg, #f64f59, #c4302b);
         }
         #walletInfo, .section {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
             border-radius: 10px;
-            margin: 20px 0;
+            margin: 30px 0;
             width: 80%;
             max-width: 600px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
@@ -63,7 +65,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             width: 80%;
             max-width: 600px;
-            margin: 20px 0;
+            margin: 30px 0;
         }
         @font-face {
             font-family: 'Orbitron';
@@ -76,7 +78,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
 </head>
 <body onload="checkWallet()">
-    <h1>My Escrow Page</h1>
+    <h1 style="font-size: 3em; margin-bottom: 30px;">Escrow USDC NOW!</h1>
     <hr>
     <section id="walletInfo">
         <br><br>
