@@ -148,7 +148,7 @@
                 document.getElementById('closeButton').disabled = true; 
             } catch (error) {
                 console.error("Error approving token transfer:", error);
-                document.getElementById('responseMessage').innerText = `Error: ${error.message}`;
+                document.getElementById('responseMessage').innerText = Error: ${error.message};
             }
     
         } ;
@@ -166,13 +166,13 @@
                 return;
             }
             var wholeNumAmount = BigInt(amount*10**18);
-            console.log(`Opening escrow with amount: ${wholeNumAmount}, Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress}`);
+            console.log(Opening escrow with amount: ${wholeNumAmount}, Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress});
             
             try {
                 const contractWithSigner = myContract.connect(signer);
                 const tx = await contractWithSigner.openEscrow(wholeNumAmount, sellerAddress, mediatorAddress);
                 const receipt = await tx.wait();
-                console.log(`Transaction successful with hash: ${receipt.transactionHash}`);
+                console.log(Transaction successful with hash: ${receipt.transactionHash});
                 document.getElementById('responseMessage').innerHTML = "Escrow account opened." ;
                 document.getElementById('responseMessage').style.color = "blue" ;
                 document.getElementById('closeButton').disabled = false; 
@@ -182,7 +182,7 @@
                 document.getElementById('approveButton').disabled = true; 
             } catch (error) {
                 console.error("Error calling escrowOpen():", error);
-                document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
+                document.getElementById('responseMessage').innerHTML = Error: ${error.message};
             }
         }
 
@@ -197,18 +197,18 @@
             if (closeOption=="paySeller") {
                 boolVar = 1;
             }
-            console.log(`Closing escrow with option: ${closeOption} --> `+boolVar);
+            console.log(Closing escrow with option: ${closeOption} --> +boolVar);
             
             try {
                 const contractWithSigner = myContract.connect(signer);
                 const tx = await contractWithSigner.closeEscrow(boolVar);
                 const receipt = await tx.wait();
-                console.log(`Transaction successful with hash: ${receipt.transactionHash}`);
+                console.log(Transaction successful with hash: ${receipt.transactionHash});
                 document.getElementById('responseMessage').innerHTML = "Escrow account closed." ;
                 document.getElementById('responseMessage').style.color = "blue" ;
             } catch (error) {
                 console.error("Error calling escrowClose():", error);
-                document.getElementById('responseMessage').innerHTML = `Error: ${error.message}`;
+                document.getElementById('responseMessage').innerHTML = Error: ${error.message};
             }
         }
     </script>
