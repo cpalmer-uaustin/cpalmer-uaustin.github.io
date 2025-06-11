@@ -6,66 +6,65 @@
     <title>Escrow USDC NOW!</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #121212, #222222, #333333);
-            color: #fff;
+            color: #00ffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             text-align: center;
-            padding-top: 50px;
-            padding-bottom: 50px;
+            padding-top: 100px;
+            padding-bottom: 100px;
         }
-        h1, h2, h3 {
+        h1, h2, h3, p, label, span, button {
             font-family: 'Orbitron', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #fff;
+            color: #00ffff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         input, button, select {
-            margin-top: 20px;
-            padding: 15px;
-            font-size: 16px;
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 18px;
             border: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
+            border-radius: 10px;
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         input:focus, button:focus, select:focus {
             outline: none;
             transform: scale(1.05);
+            box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3);
         }
         button {
-            background: linear-gradient(135deg, #12c2e9, #f64f59);
-            color: #fff;
+            background: linear-gradient(135deg, #00ffff, #00ff99);
+            color: #000;
             cursor: pointer;
         }
         button:hover {
-            background: linear-gradient(135deg, #f64f59, #c4302b);
+            background: linear-gradient(135deg, #00ff99, #00cc66);
         }
         #walletInfo, .section {
             background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
-            border-radius: 10px;
-            margin: 30px 0;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
             width: 80%;
-            max-width: 600px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            max-width: 800px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
         }
         #walletStatus {
-            font-size: 18px;
+            font-size: 24px;
         }
         hr {
             border: 0;
             border-top: 1px solid rgba(255, 255, 255, 0.2);
             width: 80%;
-            max-width: 600px;
-            margin: 30px 0;
+            max-width: 800px;
+            margin: 40px 0;
         }
         @font-face {
             font-family: 'Orbitron';
@@ -78,7 +77,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
 </head>
 <body onload="checkWallet()">
-    <h1 style="font-size: 3em; margin-bottom: 30px;">Escrow USDC NOW!</h1>
+    <h1 style="font-size: 4em; margin-bottom: 40px;">Escrow USDC NOW!</h1>
     <hr>
     <section id="walletInfo">
         <br><br>
@@ -138,7 +137,7 @@
                 document.getElementById('walletButton').hidden = false;
             } else {
                 document.getElementById('walletStatus').innerHTML = " &#x2713; Your crypto wallet is connected. <br>";
-                document.getElementById('walletStatus').style.color = "#0000FF";
+                document.getElementById('walletStatus').style.color = "#00ffff";
                 document.getElementById("walletButton").hidden = true;
             };
             console.log("token: "+escrowTokenAddress);
