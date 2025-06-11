@@ -132,7 +132,7 @@
             document.getElementById('responseMessage').innerHTML = "<b>Approval in progress...</b>" ;
             document.getElementById('responseMessage').style.color = "red" ;
 
-            approveAmt = BigInt(getAmt*10**18) ; 
+            approveAmt = BigInt(getAmt*10**6) ; 
             console.log(getAmt + " -- " + approveAmt) ;
 
             var tokenContract  = new ethers.Contract(escrowTokenAddress, escrowTokenABI, signer);
@@ -165,7 +165,7 @@
                 alert('Please enter valid details for all fields.');
                 return;
             }
-            var wholeNumAmount = BigInt(amount*10**18);
+            var wholeNumAmount = BigInt(amount*10**6);
             console.log(`Opening escrow with amount: ${wholeNumAmount}, Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress}`);
             
             try {
