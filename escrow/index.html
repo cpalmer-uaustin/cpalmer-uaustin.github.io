@@ -1,174 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escrow USDC NOW!</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ESCROW USDC</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: #00fff7;
-            min-height: 100vh;
-        }
+    body {
+      font-family: 'Orbitron', monospace;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #0d0d0d, #1a0033);
+      color: #f2f2f2;
+      text-shadow: 0 0 5px #00fff7, 0 0 10px #ff00ff;
+    }
 
-        .landing {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
+    h1, h2, h3 {
+      color: #00fff7;
+      text-align: center;
+      text-shadow: 0 0 5px #00fff7, 0 0 15px #ff00ff;
+    }
 
-        .landing h1 {
-            font-size: 64px;
-            color: #00f0ff;
-            text-shadow: 0 0 12px #00f0ff, 0 0 20px #0ff;
-            cursor: pointer;
-        }
+    .section {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 30px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
 
-        .landing p {
-            font-size: 24px;
-            color: #00fff7;
-            margin-top: 10px;
-        }
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #ccccff;
+    }
 
-        .main-content {
-            display: none;
-        }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      background: #1e1e2e;
+      border: 1px solid #00fff7;
+      color: #ffffff;
+      border-radius: 5px;
+    }
 
-        h1, h2, h3 {
-            color: #00f0ff;
-            text-shadow: 0 0 8px #00f0ff, 0 0 12px #0ff;
-        }
+    button {
+      background: linear-gradient(to right, #00fff7, #ff00ff);
+      color: black;
+      border: none;
+      padding: 12px 20px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 10px #00fff7;
+    }
 
-        hr {
-            border: none;
-            height: 3px;
-            background: linear-gradient(to right, #00f0ff, #2c5364);
-            margin: 30px 0;
-        }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff00ff, 0 0 30px #00fff7;
+    }
 
-        .section {
-            border: 2px solid #00f0ff;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            background-color: rgba(255, 255, 255, 0.05);
-            box-shadow: 0 0 15px #00f0ff44;
-        }
+    #walletInfo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        label {
-            display: block;
-            margin-top: 12px;
-            font-weight: bold;
-            color: #0ff;
-        }
+    #walletStatus {
+      font-weight: bold;
+    }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #00f0ff;
-            border-radius: 6px;
-            background-color: #102a43;
-            color: #00fff7;
-            font-size: 16px;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 12px 24px;
-            background: #00f0ff;
-            color: #102a43;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Orbitron', sans-serif;
-            cursor: pointer;
-            box-shadow: 0 0 12px #00f0ff99;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #00fff7;
-            color: #000;
-            box-shadow: 0 0 18px #00fff799;
-        }
-
-        #walletStatus {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #00fff7;
-        }
-    </style>
-
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="./escrowABI.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
+    hr {
+      border: none;
+      border-top: 1px solid #00fff7;
+      margin: 40px 0;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./escrowABI.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.5.0/ethers.umd.min.js" type="application/javascript"></script>
 </head>
-<body>
 
-    <div class="landing" onclick="enterSite()">
-        <h1>ESCROW USDC</h1>
-        <p>Click here</p>
-    </div>
+<body onload="checkWallet()">
+  <h1>ESCROW USDC</h1>
+  <hr />
 
-    <div class="main-content">
-        <h1>ESCROW USDC NOW</h1>
-        <hr>
+  <section id="walletInfo">
+    <b>Wallet connection:</b><br />
+    <span id="walletStatus" style="color:red">Checking for a wallet connection...</span><br />
+    <button onclick="checkWallet()" id="walletButton">Connect wallet</button>
+  </section>
 
-        <section id="walletInfo">
-            <b>Wallet connection:</b><br>
-            <span id="walletStatus">Checking for a wallet connection...</span><br>
-            <button onclick="checkWallet()" id="walletButton">Connect Wallet</button>
-        </section>
+  <h3>Status: <span id="responseMessage" style="color:cyan"></span></h3>
 
-        <h3>Status: <span id="responseMessage" style="color:#00fff7;"></span></h3>
+  <hr />
 
-        <hr>
-        <div class="section" id="sectionOpen">
-            <h2>Open Escrow</h2>
-            Before you open an escrow account, you must approve the funds transfer from your wallet.<br>
-            <label for="amount">Amount</label>
-            <input type="number" id="amount" name="amount" min="1"><br>
-            <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button><br>
+  <div class="section" id="sectionOpen">
+    <h2>Open Escrow</h2>
+    <p>Before you open an escrow account, you must approve the funds transfer from your wallet.</p>
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" min="1" />
 
-            <label for="sellerAddress">Seller address</label>
-            <input type="text" id="sellerAddress" name="sellerAddress"><br>
-            <label for="mediatorAddress">Mediator address</label>
-            <input type="text" id="mediatorAddress" name="mediatorAddress"><br>
-            <button id="openButton" onclick="openEscrow()" disabled>Open Escrow</button>
-        </div>
+    <button id="approveButton" onclick="approveButton()">Approve Token Transfer</button>
 
-        <hr>
-        <div class="section" id="sectionClose">
-            <h2>Close Escrow</h2>
-            <label for="closeOption">Close escrow option</label>
-            <select id="closeOption" name="closeOption" required>
-                <option value="paySeller">Pay seller</option>
-                <option value="returnFunds">Return funds</option>
-            </select><br>
-            <button id="closeButton" onclick="closeEscrow()">Close Escrow</button>
-        </div>
-    </div>
+    <label for="sellerAddress">Seller address</label>
+    <input type="text" id="sellerAddress" name="sellerAddress" />
 
-    <script>
-        function enterSite() {
-            document.querySelector('.landing').style.display = 'none';
-            document.querySelector('.main-content').style.display = 'block';
-            checkWallet();
-        }
-    </script>
+    <label for="mediatorAddress">Mediator address</label>
+    <input type="text" id="mediatorAddress" name="mediatorAddress" />
 
-    <!-- JS logic remains unchanged -->
-    <!-- ... (keep your original JS code here) -->
+    <button id="openButton" onclick="openEscrow()" disabled>Open Escrow</button>
+  </div>
 
+  <hr />
+
+  <div class="section" id="sectionClose">
+    <h2>Close Escrow</h2>
+    <label for="closeOption">Close escrow option</label>
+    <select id="closeOption" name="closeOption" required>
+      <option value="paySeller">Pay seller</option>
+      <option value="returnFunds">Return funds</option>
+    </select>
+
+    <button id="closeButton" onclick="closeEscrow()">Close Escrow</button>
+  </div>
+
+  <!-- original script untouched -->
+  <script>
+    // (Original JavaScript code remains unchanged)
+    // --- your original functions (checkWallet, approveButton, openEscrow, closeEscrow) go here ---
+  </script>
 </body>
 </html>
