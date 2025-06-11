@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract MyEscrow {
 
     // Replace this address with the token you created (or whatever token you want to use).
-    address constant tokenToEscrow = 0x455e53CBB86018Ac2B8092FdCd39d8444aFFC3F6 ;
+    address constant tokenToEscrow = 0x0105c6E84344c90218D79Afe8562E65d8BE2F852 ;
     // This tells the contract that the address you provided is a token that can be transferred.
     IERC20 escrowToken = IERC20(tokenToEscrow); 
     address public buyerAddress = address(0);
