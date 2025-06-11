@@ -315,8 +315,10 @@
         async function approveButton() {
             console.log("approveButton() called.");
             let getAmt = document.getElementById('amount').value;
-            if (getAmt <= 0) {
-                alert('Please enter a valid amount to approve.');
+
+            // Basic validation for amount input
+            if (!getAmt || parseFloat(getAmt) <= 0) {
+                alert('Please enter a valid amount (greater than 0) to approve.');
                 return;
             }
 
@@ -326,6 +328,7 @@
             document.getElementById('responseMessage').style.color = "var(--info-color)";
 
             // USDC has 6 decimals
+            // Corrected: Use ethers.utils.parseUnits to convert decimal string to BigNumber
             const approveAmt = ethers.utils.parseUnits(getAmt.toString(), 6);
             console.log(`${getAmt} USDC --> ${approveAmt.toString()} raw units`);
 
@@ -362,9 +365,17 @@
             const sellerAddress = document.getElementById('sellerAddress').value;
             const mediatorAddress = document.getElementById('mediatorAddress').value;
 
-            if (amount <= 0 || !sellerAddress || !mediatorAddress) {
-                alert('Please enter valid details for all fields (amount > 0, valid addresses).');
-                document.getElementById('responseMessage').innerHTML = "Please enter valid details for all fields.";
+            // More robust validation for amount input
+            if (!amount || parseFloat(amount) <= 0) {
+                alert('Please enter a valid amount (greater than 0) for the escrow.');
+                document.getElementById('responseMessage').innerHTML = "Please enter a valid amount.";
+                document.getElementById('responseMessage').style.color = "var(--error-color)";
+                document.getElementById('openButton').disabled = false;
+                return;
+            }
+            if (!sellerAddress || !mediatorAddress) {
+                alert('Please enter valid details for all fields.');
+                document.getElementById('responseMessage').innerHTML = "Please enter valid seller and mediator addresses.";
                 document.getElementById('responseMessage').style.color = "var(--error-color)";
                 document.getElementById('openButton').disabled = false; // Re-enable on validation error
                 return;
@@ -373,13 +384,13 @@
             // Validate addresses (basic check)
             if (!ethers.utils.isAddress(sellerAddress) || !ethers.utils.isAddress(mediatorAddress)) {
                 alert('Please enter valid Ethereum addresses for Seller and Mediator.');
-                document.getElementById('responseMessage').innerHTML = "Invalid seller or mediator address.";
+                document.getElementById('responseMessage').innerHTML = "Invalid seller or mediator address format.";
                 document.getElementById('responseMessage').style.color = "var(--error-color)";
                 document.getElementById('openButton').disabled = false; // Re-enable on validation error
                 return;
             }
 
-
+            // Corrected: Use ethers.utils.parseUnits to convert decimal string to BigNumber
             const wholeNumAmount = ethers.utils.parseUnits(amount.toString(), 6); // USDC has 6 decimals
             console.log(`Opening escrow with amount: ${wholeNumAmount.toString()} (raw), Seller Address: ${sellerAddress}, Mediator Address: ${mediatorAddress}`);
 
