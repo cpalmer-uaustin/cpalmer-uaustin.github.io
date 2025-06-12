@@ -5,91 +5,171 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escrow USDC NOW!</title>
     <style>
+    /* CSS Variables for a cleaner, futuristic theme */
+    :root {
+        --bg-dark: #1a1a2e; /* Deep dark blue */
+        --primary-blue: #00bcd4; /* Cyan/electric blue for accents and highlights */
+        --secondary-gray: #2e3047; /* Darker blue-gray for element backgrounds */
+        --text-light: #e0e0e0; /* Light gray for main text */
+        --text-accent: #a0a0a0; /* Slightly darker light gray for labels */
+        --success-green: #4CAF50; /* Standard green for success, if needed */
+        --error-red: #f44336; /* Standard red for errors */
+        --border-glow: rgba(0, 188, 212, 0.5); /* Primary blue with transparency for glow effects */
+    }
+    
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 40px;
-        background-color: #f4f7f6;
-        color: #333;
+        font-family: 'Consolas', 'Roboto Mono', 'Segoe UI', monospace, sans-serif; /* Futuristic/techy font stack */
+        margin: 40px auto; /* Centering the entire page content horizontally with top/bottom margin */
+        max-width: 900px; /* Limit content width for better readability and centering */
+        background-color: var(--bg-dark);
+        color: var(--text-light);
         line-height: 1.6;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        text-align: center; /* Center block elements like h1, hr, etc., if they don't take full width */
+    }
+    
+    /* Adjusting the main body to use flex for more robust centering of its children */
+    body > * {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%; /* Ensure children take full available width within body's max-width */
     }
     
     h1, h2, h3 {
-        color: #007bff;
+        color: var(--primary-blue);
         margin-bottom: 15px;
+        text-shadow: 0 0 8px var(--primary-blue); /* Subtle glow effect */
+        text-transform: uppercase; /* More futuristic look */
+        letter-spacing: 2px;
     }
     
     hr {
         border: 0;
         height: 1px;
-        background: #ddd;
-        margin: 20px 0;
+        background: linear-gradient(to right, transparent, var(--primary-blue), transparent); /* Glowing separator */
+        margin: 30px 0;
+        opacity: 0.7;
     }
     
     .section {
-        background-color: #fff;
+        background-color: var(--secondary-gray);
         padding: 30px;
         margin-bottom: 30px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 12px; /* Slightly rounded for modern tech feel */
+        box-shadow: 0 0 15px rgba(0, 188, 212, 0.3), 0 0 5px rgba(0, 0, 0, 0.5); /* Double shadow for depth and glow */
+        border: 1px solid var(--primary-blue); /* Thin border with accent color */
+        width: calc(100% - 60px); /* Adjust for padding to stay within max-width */
+        max-width: 700px; /* Limit section width within the centered page */
+        margin: 0 auto 30px auto; /* Center sections within the body */
+        box-sizing: border-box;
+        text-align: left; /* Align text within sections to the left */
     }
     
     label {
         display: block;
         margin-bottom: 8px;
         font-weight: bold;
-        color: #555;
+        color: var(--text-accent);
+        text-transform: uppercase; /* Futuristic touch */
+        letter-spacing: 1px;
     }
     
-    input, select, button {
+    input, select {
         margin-top: 5px;
         padding: 12px 15px;
         font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+        border: 1px solid var(--primary-blue);
+        border-radius: 6px;
         box-sizing: border-box;
         width: 100%;
-        max-width: 400px;
+        max-width: 400px; /* Keep inputs reasonable size */
+        background-color: #3f425b; /* Slightly lighter dark for inputs */
+        color: var(--text-light);
+        transition: all 0.3s ease;
     }
     
     input:focus, select:focus {
         outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 10px var(--border-glow); /* Enhanced glow on focus */
     }
     
     button {
-        background-color: #007bff;
+        background-color: var(--primary-blue);
         color: white;
         border: none;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: all 0.3s ease;
+        padding: 12px 20px;
+        font-weight: bold;
+        border-radius: 6px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 8px var(--primary-blue); /* Initial glow for buttons */
+        width: 100%;
+        max-width: 400px;
+        margin-top: 15px; /* Ensure buttons have consistent top margin */
     }
     
     button:hover {
-        background-color: #0056b3;
+        background-color: #0097a7; /* Slightly darker cyan */
+        box-shadow: 0 0 15px var(--border-glow); /* More intense glow on hover */
+        transform: translateY(-2px); /* Slight lift effect */
     }
     
     button:disabled {
-        background-color: #ccc;
+        background-color: #555;
+        color: #bbb;
         cursor: not-allowed;
+        box-shadow: none; /* No glow when disabled */
+        transform: none;
     }
     
     #walletInfo {
         margin-bottom: 30px;
         padding: 20px;
-        background-color: #e9ecef;
-        border-radius: 6px;
-        border: 1px solid #d1d1d1;
+        background-color: var(--secondary-gray);
+        border-radius: 8px;
+        border: 1px solid var(--text-accent);
+        box-shadow: 0 0 10px rgba(0, 188, 212, 0.2);
+        width: calc(100% - 40px); /* Adjust for padding */
+        max-width: 700px; /* Consistent with other sections */
+        margin: 0 auto 30px auto; /* Center within the body */
+        box-sizing: border-box;
+        text-align: left;
     }
     
     #walletStatus {
         font-weight: bold;
+        color: var(--primary-blue); /* Make status text stand out */
+        text-shadow: 0 0 3px var(--primary-blue);
     }
     
     #responseMessage {
         display: block;
         margin-top: 15px;
         font-weight: bold;
+        color: var(--primary-blue) !important; /* Default for blue status, overrides inline */
+        text-shadow: 0 0 5px var(--primary-blue); /* Subtle glow for message */
+    }
+    
+    /* Specific colors for status messages based on inline styles */
+    #responseMessage[style*="color:red"] {
+        color: var(--error-red) !important; /* Override inline style for red */
+        text-shadow: 0 0 5px var(--error-red);
+    }
+    #responseMessage[style*="color:blue"] {
+        color: var(--primary-blue) !important; /* Override inline style for blue */
+        text-shadow: 0 0 5px var(--primary-blue);
+    }
+    
+    /* Ensure consistent spacing for form elements */
+    input + button, input + input, select + button, select + input {
+        margin-top: 15px; /* More consistent spacing between form elements */
+    }
+    
+    label + input, label + select {
+        margin-top: 5px; /* Adjust if needed, generally label is above input */
     }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
