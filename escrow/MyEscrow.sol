@@ -49,16 +49,4 @@ contract MyEscrow {
         amountToEscrow = 0;
     }
 
-
-    /* Note: The following function is strictly for testing puposes.
-        If your code above doesn't work for some reason, your tokens can get 
-        stuck in the smart contract with no way to get them out.
-        The cancel() function will send all the tokens back to your wallet.
-        You should delete this function once your code is working correctly.
-        If you don't someone could steal the tokens from the contract.
-    */
-    function cancel() public {
-        escrowToken.approve(address(this), amountToEscrow);
-        escrowToken.transferFrom(address(this), msg.sender, amountToEscrow);
-    }
 }
