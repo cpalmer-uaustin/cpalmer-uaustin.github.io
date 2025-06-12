@@ -48,5 +48,4 @@ contract MyEscrow {
         mediatorAddress = address(0);
         amountToEscrow = 0;
     }
-
 }
