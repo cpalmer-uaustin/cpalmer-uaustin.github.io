@@ -5,15 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escrow USDC NOW!</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input, button {
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 40px;
+        background-color: #f4f7f6;
+        color: #333;
+        line-height: 1.6;
+    }
+    
+    h1, h2, h3 {
+        color: #007bff;
+        margin-bottom: 15px;
+    }
+    
+    hr {
+        border: 0;
+        height: 1px;
+        background: #ddd;
+        margin: 20px 0;
+    }
+    
+    .section {
+        background-color: #fff;
+        padding: 30px;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
+    
+    input, select, button {
+        margin-top: 5px;
+        padding: 12px 15px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    input:focus, select:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+    
+    #walletInfo {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: #e9ecef;
+        border-radius: 6px;
+        border: 1px solid #d1d1d1;
+    }
+    
+    #walletStatus {
+        font-weight: bold;
+    }
+    
+    #responseMessage {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+    }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
